@@ -7,19 +7,27 @@
 
 namespace Spryker\Zed\ProductRelationCollector\Dependency\Facade;
 
-interface ProductRelationCollectorToPriceInterface
+interface ProductRelationCollectorToPriceProductFacadeInterface
 {
     /**
      * @param string $sku
+     * @param string|null $priceTypeName
      *
-     * @return int
+     * @return int|null
      */
-    public function getPriceBySku($sku);
+    public function findPriceBySku($sku, $priceTypeName = null);
 
     /**
      * @param string $sku
      *
      * @return \Generated\Shared\Transfer\PriceProductTransfer[]
      */
-    public function findPricesBySku($sku);
+    public function findPricesBySkuForCurrentStore($sku);
+
+    /**
+     * @param string $sku
+     *
+     * @return array
+     */
+    public function findPricesBySkuGroupedForCurrentStore($sku);
 }
