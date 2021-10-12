@@ -5,27 +5,43 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\ProductRelationCollector\Business;
+namespace Spryker\Zed\ProductRelationCollector\Business\Collector;
 
 use Generated\Shared\Transfer\LocaleTransfer;
 use Orm\Zed\Touch\Persistence\SpyTouchQuery;
+use Spryker\Zed\Collector\Business\Collector\DatabaseCollectorInterface;
 use Spryker\Zed\Collector\Business\Exporter\Reader\ReaderInterface;
 use Spryker\Zed\Collector\Business\Exporter\Writer\TouchUpdaterInterface;
 use Spryker\Zed\Collector\Business\Exporter\Writer\WriterInterface;
 use Spryker\Zed\Collector\Business\Model\BatchResultInterface;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
+use Spryker\Zed\ProductRelationCollector\Dependency\Facade\ProductRelationCollectorToCollectorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * @method \Spryker\Zed\ProductRelationCollector\Business\ProductRelationCollectorBusinessFactory getFactory()
- */
-class ProductRelationCollectorFacade extends AbstractFacade implements ProductRelationCollectorFacadeInterface
+class ProductRelationCollectorRunner implements ProductRelationCollectorRunnerInterface
 {
     /**
-     * {@inheritDoc}
-     *
-     * @api
-     *
+     * @var \Spryker\Zed\Collector\Business\Collector\DatabaseCollectorInterface
+     */
+    protected $collector;
+
+    /**
+     * @var \Spryker\Zed\ProductRelationCollector\Dependency\Facade\ProductRelationCollectorToCollectorInterface
+     */
+    protected $collectorFacade;
+
+    /**
+     * @param \Spryker\Zed\Collector\Business\Collector\DatabaseCollectorInterface $collector
+     * @param \Spryker\Zed\ProductRelationCollector\Dependency\Facade\ProductRelationCollectorToCollectorInterface $collectorFacade
+     */
+    public function __construct(
+        DatabaseCollectorInterface $collector,
+        ProductRelationCollectorToCollectorInterface $collectorFacade
+    ) {
+        $this->collector = $collector;
+        $this->collectorFacade = $collectorFacade;
+    }
+
+    /**
      * @param \Orm\Zed\Touch\Persistence\SpyTouchQuery $baseQuery
      * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
      * @param \Spryker\Zed\Collector\Business\Model\BatchResultInterface $result
@@ -36,7 +52,7 @@ class ProductRelationCollectorFacade extends AbstractFacade implements ProductRe
      *
      * @return void
      */
-    public function runStorageProductRelationCollector(
+    public function run(
         SpyTouchQuery $baseQuery,
         LocaleTransfer $localeTransfer,
         BatchResultInterface $result,
@@ -44,8 +60,9 @@ class ProductRelationCollectorFacade extends AbstractFacade implements ProductRe
         WriterInterface $dataWriter,
         TouchUpdaterInterface $touchUpdater,
         OutputInterface $output
-    ) {
-        $this->getFactory()->createLabelDictionaryStorageCollectorRunner()->run(
+    ): void {
+        $this->collectorFacade->runCollector(
+            $this->collector,
             $baseQuery,
             $localeTransfer,
             $result,
