@@ -29,10 +29,6 @@ class ProductRelationCollectorRunner implements ProductRelationCollectorRunnerIn
      */
     protected $collectorFacade;
 
-    /**
-     * @param \Spryker\Zed\Collector\Business\Collector\DatabaseCollectorInterface $collector
-     * @param \Spryker\Zed\ProductRelationCollector\Dependency\Facade\ProductRelationCollectorToCollectorInterface $collectorFacade
-     */
     public function __construct(
         DatabaseCollectorInterface $collector,
         ProductRelationCollectorToCollectorInterface $collectorFacade
@@ -41,17 +37,6 @@ class ProductRelationCollectorRunner implements ProductRelationCollectorRunnerIn
         $this->collectorFacade = $collectorFacade;
     }
 
-    /**
-     * @param \Orm\Zed\Touch\Persistence\SpyTouchQuery $baseQuery
-     * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
-     * @param \Spryker\Zed\Collector\Business\Model\BatchResultInterface $result
-     * @param \Spryker\Zed\Collector\Business\Exporter\Reader\ReaderInterface $dataReader
-     * @param \Spryker\Zed\Collector\Business\Exporter\Writer\WriterInterface $dataWriter
-     * @param \Spryker\Zed\Collector\Business\Exporter\Writer\TouchUpdaterInterface $touchUpdater
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return void
-     */
     public function run(
         SpyTouchQuery $baseQuery,
         LocaleTransfer $localeTransfer,

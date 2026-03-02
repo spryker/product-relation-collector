@@ -97,9 +97,6 @@ class ProductRelationCollectorBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(ProductRelationCollectorDependencyProvider::FACADE_COLLECTOR);
     }
 
-    /**
-     * @return \Spryker\Zed\ProductRelationCollector\Business\Collector\ProductRelationCollectorRunnerInterface
-     */
     public function createLabelDictionaryStorageCollectorRunner(): ProductRelationCollectorRunnerInterface
     {
         return new ProductRelationCollectorRunner(

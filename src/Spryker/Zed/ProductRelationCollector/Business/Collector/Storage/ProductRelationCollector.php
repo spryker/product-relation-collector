@@ -40,12 +40,6 @@ class ProductRelationCollector extends AbstractStoragePropelCollector
      */
     protected $productRelationQueryContainer;
 
-    /**
-     * @param \Spryker\Service\UtilDataReader\UtilDataReaderServiceInterface $utilDataReaderService
-     * @param \Spryker\Zed\ProductRelationCollector\Dependency\QueryContainer\ProductRelationCollectorToProductImageInterface $productImageQueryContainer
-     * @param \Spryker\Zed\ProductRelationCollector\Dependency\Facade\ProductRelationCollectorToPriceProductFacadeInterface $priceProductFacade
-     * @param \Spryker\Zed\ProductRelationCollector\Dependency\QueryContainer\ProductRelationCollectorToProductRelationInterface $productRelationQueryContainer
-     */
     public function __construct(
         UtilDataReaderServiceInterface $utilDataReaderService,
         ProductRelationCollectorToProductImageInterface $productImageQueryContainer,
